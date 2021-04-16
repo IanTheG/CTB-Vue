@@ -1,12 +1,20 @@
 <template>
   <div id="app">
-    <!-- Render image container here -->
-    
-    <router-view :key="$route.path"/>
+    <div id="root">
+      <!-- Render image container here -->
+      <ImageContainer />
+      <router-view :key="$route.path"/>
+    </div>
+    <RotateToPortraitView />
+    <DesktopView />
   </div>
 </template>
 
 <script>
+import DesktopView from './views/DesktopView.vue'
+import ImageContainer from './components/ImageContainer'
+import RotateToPortraitView from './views/RotateToPortraitView.vue'
+
 function setDocHeight() {
   document.documentElement.style.setProperty('--vh', `${window.innerHeight/100}px`)
 }
@@ -15,9 +23,14 @@ window.addEventListener('resize', setDocHeight)
 window.addEventListener('orientationchange', setDocHeight)
 
 export default {
+  components: {
+    ImageContainer,
+    RotateToPortraitView,
+    DesktopView
+  },
   created() {
-    document.documentElement.setAttribute('data-theme', false)
-  }
+    document.getElementById('app').setAttribute('data-theme', false)
+  },
 }
 </script>
 
@@ -77,6 +90,13 @@ button {
 section {
   background-color: var(--theme-color-transluscent);
   padding-top: 1rem;
+}
+.img {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  z-index: -1;
+  object-fit: cover;
 }
 .prayer {
   padding-top: 0;
@@ -144,16 +164,60 @@ section {
     font-size: 18px;
   }
 }
-
 @media screen and (min-height: 768px) {
+  html {
+    font-size: 19px;
+  }
+
+}
+@media screen and (min-width: 768px) {
+  html {
+    font-size: 20px;
+  }
   h3 {
-    font-size: 2.2rem;
+    font-size: 2rem;
   }
   p {
     font-size: 1.2rem;
   }
+  section {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+  }
 }
 
+@media screen and (min-height: 1025px) {
+  html {
+    font-size: 26px;
+  }
+}
+
+// Normal display
+@media (orientation: portrait) {
+  #root { display: block; }
+  #portrait { display: none; }
+}
+// iPhone
+@media (orientation: landscape) and (max-width: 760px) {
+  #root { display: none; }
+  #portrait { display: flex; }
+}
+// Large iPhone
+@media (orientation: landscape) and (max-width: 900px) and (max-height: 450px) {
+  #root { display: none; }
+  #portrait { display: flex; }
+}
+// Styling to always hide RotateToPortrait component on desktop and iPad
+@media (orientation: portrait) and (min-width: 768px) {
+  #root { display: block; }
+  #portrait { display: none; }
+  #desktop-view { display: none; }
+}
+@media (orientation: landscape) and (min-width: 1024px) {
+  #root { display: none; }
+  #portrait { display: none; }
+  #desktop-view { display: flex; }
+}
 /*
 #nav {
   padding: 30px;

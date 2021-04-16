@@ -18,6 +18,11 @@ const routes = [
     component: ClosingPrayers
   },
   {
+    path: '/:mystery',
+    name: 'MysteryNoId',
+    component: Mystery
+  },
+  {
     path: '/:mystery/:id',
     name: 'Mystery',
     component: Mystery

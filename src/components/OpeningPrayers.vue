@@ -1,12 +1,12 @@
 <template>
 <div>
   <div class="box">
-    <h2 class="subtitle">Opening Prayers</h2>
-    <section>
+    <h2 class="subtitle title--text" style="font-size: 1.4rem;">Opening Prayers</h2>
+    <section class="no-grid">
       <div>
-        <p class="prayer prayer--top">Begin by making the <b>Sign of The Cross.</b></p>
-        <p class="prayer" style="font-size: 1.2rem;">{{ signOfCross[0] }}</p>
-        <p class="prayer" style="font-size: 1.2rem;">{{ signOfCross[1] }}</p>
+        <p>Begin by making the <b>Sign of The Cross.</b></p>
+        <p style="font-size: 1.2rem;">In the name of The Father, The Son, and The Holy Spirit.</p>
+        <p style="font-size: 1.2rem;">Amen.</p>
       </div>
     </section>
   </div>
@@ -15,7 +15,7 @@
     <h3>The Apostle's Creed</h3>
     <section class="no-grid">
       <div>
-        <p class="desc">Say the <b>Apostle's Creed.</b></p>
+        <p>Say the <b>Apostle's Creed.</b></p>
         <p style="white-space: pre-wrap;">{{ creed }}</p>
       </div>
     </section>
@@ -36,7 +36,7 @@
     <h3>Hail Mary</h3>
     <section>
       <div>
-        <p class="desc">Say three <b>Hail Mary's.</b></p>
+        <p>Say three <b>Hail Mary's.</b></p>
         <p style="font-style: italic;">For the increase of the virtues of Faith, Hope, and Charity.</p>
         <p v-for="(line, idx) in hailMary" :key="idx">{{ line }}</p>
       </div>
@@ -47,7 +47,7 @@
     <h3>Glory Be</h3>
     <section>
       <div>
-        <p class="desc">Say the <b>Glory Be.</b></p>
+        <p>Say the <b>Glory Be.</b></p>
         <p v-for="(line, idx) in gloryBe" :key="idx">{{ line }}</p>
       </div>
     </section>
@@ -61,9 +61,6 @@ import prayers from '../assets/data/prayers.json'
 export default {
   name: 'OpeningPrayers',
   computed: {
-    signOfCross() {
-      return prayers.SIGN_OF_CROSS
-    },
     creed() {
       return prayers.APOSTLES_CREED
     },
@@ -81,4 +78,7 @@ export default {
 </script>
 
 <style>
+.no-grid {
+  display: block;
+}
 </style>
