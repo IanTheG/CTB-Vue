@@ -34,6 +34,7 @@
   </div>
 
   <OpeningPrayers />
+
   <MysteriesNav />
 
   <div class="box background-theme">

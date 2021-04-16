@@ -37,7 +37,7 @@ export default {
   methods: {
     navTo(mystery) {
       this.$store.commit('setCurrentMystery', mystery)
-      // this.$store.commit('setCurrentDecade', 0)
+      this.$store.commit('setImages', mystery)
       this.$router.push({ name: 'Mystery', params: { mystery, id: '1' } })
     }
   }
@@ -73,8 +73,12 @@ export default {
 
 @media screen and (min-width: 768px) {
   .link {
+    & > h3 {
+      font-size: 2.2rem;
+    }
     & > p {
-      padding: 1rem 2rem;
+      font-size: 1.4rem;
+      padding: 1rem 3rem;
     }
   }
 }

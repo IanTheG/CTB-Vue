@@ -48,25 +48,27 @@ export default {
   },
   data() {
     return {
-      index: 0
+      index: 1
     }
   },
   created() {
     if (this.$route.params.id) {
       this.index = parseInt(this.$route.params.id)
-    }
-    // Only renders this component if the path is one of the four mysteries
-    const mysteries = ["glorious", "joyful", "sorrowful", "luminous"]
-    const userEnteredPath = this.$route.params.mystery.toLowerCase()
-    if (mysteries.includes(userEnteredPath) &&
-        userEnteredPath !== this.$store.state.currentMystery.id) {
-          // If the user enters one of the four mysteries in the url, render it
-          this.$store.commit('setCurrentMystery', userEnteredPath)
-          this.$router.replace({ name: 'Mystery', params: { mystery: userEnteredPath, id: 0 } })
-    } else if (userEnteredPath === this.$store.state.currentMystery.id) {
-      return
     } else {
-      this.$router.push({ name: 'Home' })
+      // Only renders this component if the path is one of the four mysteries
+      const mysteries = ["glorious", "joyful", "sorrowful", "luminous"]
+      const userEnteredPath = this.$route.params.mystery.toLowerCase()
+      if (mysteries.includes(userEnteredPath) &&
+          userEnteredPath !== this.$store.state.currentMystery.id) {
+            // If the user enters one of the four mysteries in the url, render it
+            this.$store.commit('setCurrentMystery', userEnteredPath)
+            this.$store.commit('setImages', userEnteredPath)
+            this.$router.replace({ name: 'Mystery', params: { mystery: userEnteredPath, id: '1' } })
+      } else if (userEnteredPath === this.$store.state.currentMystery.id) {
+        return
+      } else {
+        this.$router.push({ name: 'Home' })
+      }
     }
   },
   mounted() {
