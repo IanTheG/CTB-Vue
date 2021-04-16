@@ -29,10 +29,10 @@ export default {
   },
   computed: {
     currentMysteryName() {
-      return this.$store.state.currentMystery.decades[this.$store.state.currentDecade].name
+      return this.$store.state.currentMystery.decades[parseInt(this.$route.params.id) - 1].name
     },
     scenes() {
-      return this.$store.state.currentMystery.decades[this.$store.state.currentDecade].scenes
+      return this.$store.state.currentMystery.decades[parseInt(this.$route.params.id) - 1].scenes
     }
   }
 }

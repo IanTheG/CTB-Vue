@@ -18,7 +18,7 @@ const routes = [
     component: ClosingPrayers
   },
   {
-    path: '/:mystery',
+    path: '/:mystery/:id',
     name: 'Mystery',
     component: Mystery
   }

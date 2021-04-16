@@ -37,8 +37,8 @@ export default {
   methods: {
     navTo(mystery) {
       this.$store.commit('setCurrentMystery', mystery)
-      this.$store.commit('setCurrentDecade', 0)
-      this.$router.push({ name: 'Mystery', params: { mystery } })
+      // this.$store.commit('setCurrentDecade', 0)
+      this.$router.push({ name: 'Mystery', params: { mystery, id: '1' } })
     }
   }
 }
