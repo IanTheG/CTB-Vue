@@ -1,10 +1,11 @@
 <template>
    <span
-    class="toggle-wrapper"
-    @click="toggle" role="checkbox"
     :aria-checked="value.toString()"
-    tabindex="0"
+    class="toggle-wrapper"
+    @click="toggle"
     @keydown.space.prevent="toggle"
+    role="checkbox"
+    tabindex="0"
    >
     <span class="toggle-background" :style="backgroundStyles"></span>
     <span class="toggle-indicator" :style="indicatorStyles"></span>
@@ -18,6 +19,22 @@ export default {
   methods: {
     toggle() {
       this.$emit('input', !this.value)
+      this.$store.commit('setDarkMode', !this.value)
+
+      const app = document.getElementById('app')
+      app.setAttribute('data-theme', !this.value)
+
+      if (!this.value) {
+        app.style.setProperty('--theme-color', '#6A5188')
+        app.style.setProperty('--theme-text-color', 'whitesmoke')
+        app.style.setProperty('--theme-color-invert', '#967db4')
+        app.style.setProperty('--theme-color-transluscent', 'rgba(106, 81, 136, 0.85)')
+      } else  {
+        app.style.setProperty('--theme-color', '#967db4')
+        app.style.setProperty('--theme-text-color', 'black')
+        app.style.setProperty('--theme-color-invert', '#6A5188')
+        app.style.setProperty('--theme-color-transluscent', 'rgba(150, 125, 180, 0.85)')
+      }
     }
   },
   computed: {
@@ -41,6 +58,7 @@ export default {
   height: 2rem;
   width: 4rem;
   border-radius: 9999px;
+  /* margin: 0 0 1rem 1rem; */
 }
 .toggle-wrapper:focus {
   outline: 0;

@@ -1,9 +1,9 @@
 <template>
 <main class="scroll-box">
   <div id="top-box" class="box">
-    <div>
-      <h1 class="title title--mystery">The {{ currentMysteryNumber }} {{ $store.state.currentMystery.name }} Mystery</h1>
-      <h2 class="title title--mystery">{{ currentMysteryName }}</h2>
+    <div class="background-theme">
+      <h1 class="title title--mystery" style="padding-bottom: 0;">The {{ currentMysteryNumber }} {{ $store.state.currentMystery.name }} Mystery</h1>
+      <h2 class="title title--mystery" style="padding-top: 0;">{{ currentMysteryName }}</h2>
       <p style="text-align: center;"><em>Fruits of the mystery: {{ currentMysteryFruits }}</em></p>
     </div>
     <section>
@@ -15,17 +15,17 @@
 
   <Decade />
 
-  <div class="box">
+  <div class="box background-theme">
     <section class="prayer">
       <div>
-        <h3>Glory Be</h3>
+        <h3 class="title">Glory Be</h3>
         <div class="div-line"></div>
         <p v-for="(line, idx) in gloryBe" :key="idx">{{ line }}</p>
       </div>
     </section>
     <section class="prayer">
       <div>
-        <h3>Fatima Prayer</h3>
+        <h3 class="title">Fatima Prayer</h3>
         <div class="div-line"></div>
         <p>{{ fatimaPrayer }}</p>
       </div>
@@ -46,7 +46,15 @@ export default {
   components: {
     Decade
   },
+  data() {
+    return {
+      index: 0
+    }
+  },
   created() {
+    if (this.$route.params.id) {
+      this.index = parseInt(this.$route.params.id)
+    }
     // Only renders this component if the path is one of the four mysteries
     const mysteries = ["glorious", "joyful", "sorrowful", "luminous"]
     const userEnteredPath = this.$route.params.mystery.toLowerCase()
@@ -54,7 +62,7 @@ export default {
         userEnteredPath !== this.$store.state.currentMystery.id) {
           // If the user enters one of the four mysteries in the url, render it
           this.$store.commit('setCurrentMystery', userEnteredPath)
-          this.$store.commit('setCurrentDecade', 0)
+          this.$router.replace({ name: 'Mystery', params: { mystery: userEnteredPath, id: 0 } })
     } else if (userEnteredPath === this.$store.state.currentMystery.id) {
       return
     } else {
@@ -76,19 +84,22 @@ export default {
       return prayers.FATIMA_PRAYER
     },
     currentMysteryNumber() {
-      return this.$store.state.currentMystery.decades[this.$store.state.currentDecade].number
+      return this.$store.state.currentMystery.decades[this.index - 1].number
     },
     currentMysteryName() {
-      return this.$store.state.currentMystery.decades[this.$store.state.currentDecade].name
+      return this.$store.state.currentMystery.decades[this.index - 1].name
     },
     currentMysteryFruits() {
-      return this.$store.state.currentMystery.decades[this.$store.state.currentDecade].fruits
+      return this.$store.state.currentMystery.decades[this.index - 1].fruits
     }
   },
   methods: {
     navToNextDecade() {
-      if (this.$store.state.currentDecade < 4) {
-        this.$store.commit('setCurrentDecade', this.$store.state.currentDecade + 1)
+      if (this.index < 5) {
+        this.$router.push({
+          name: 'Mystery',
+          params: { mystery: this.$route.params.mystery, id: this.index + 1 }
+        })
         document.getElementById('top-box')?.scrollIntoView(true)
       } else {
         this.$router.push({ name: 'ClosingPrayers' })
@@ -99,9 +110,6 @@ export default {
 </script>
 
 <style lang="scss">
-.title--mystery {
-  font-size: 1.5rem;
-}
 .btn-box {
   display: flex;
   justify-content: center;

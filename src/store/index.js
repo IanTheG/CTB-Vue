@@ -8,14 +8,15 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     currentMystery: {},
-    currentDecade: 0
+    darkMode: false
   },
   mutations: {
     setCurrentMystery(state, payload) {
       state.currentMystery = mysteries[payload]
     },
-    setCurrentDecade(state, payload) {
-      state.currentDecade = payload
+    setDarkMode(state, payload) {
+      // False: light mode, True: dark mode
+      state.darkMode = payload
     }
   },
   plugins: [createPersistedState()],

@@ -4,14 +4,18 @@
     <h1 style="text-align: center;">Connecting The Beads</h1>
     <section>
       <div>
-        <Toggle v-model="checked" />
+        <div class="theme-box">
+          <i v-if="$store.state.darkMode" class="far fa-moon theme-icon" style="font-size: 1.5rem;"></i>
+          <i v-else class="fas fa-sun theme-icon" style="font-size: 1.5rem;"></i>
+          <Toggle v-model="checked" />
+        </div>
         <p>This mobile–friendly web app is a Rosary companion designed to help you pray and meditate with scripture and religious artwork depicting the lives of Jesus, Mary, Joseph, and the disciples.</p>
         <p>Add this app to your home screen to run it full-screen!</p>
       </div>
     </section>
   </div>
 
-  <div class="box">
+  <div class="box background-theme">
     <h2>Praying The Rosary</h2>
     <p>
     &#8223;The Rosary is a Scripture-based prayer. It begins with the Apostles' Creed, which summarizes the great mysteries of the Catholic faith.
@@ -32,19 +36,19 @@
   <OpeningPrayers />
   <MysteriesNav />
 
-  <div class="box">
-    <h2>Contact Info</h2>
+  <div class="box background-theme">
+    <h2 style="margin-bottom: 1rem;">Contact Info</h2>
     <div>
       <p>If you have any issues or encounter any bugs with <em>Connecting The Beads</em> or would like to contact me,
         <a style="padding: 0;" href="https://www.facebook.com/profile.php?id=100013351997843" target="_blank" rel="noreferrer">
           message me on Facebook.
         </a>
       </p>
-      <p>This web app is created by Ian Goodwin, a web developer, jazz saxophonist, Catholic, and dreamer.</p>
+      <p>This web app is created by Ian Goodwin, a web developer, jazz saxophonist, Catholic.</p>
       <p>Note, this web app requires a modern smartphone and updated web browser (at least iOS 12.2 or Chrome 51 on Android).</p>
     </div>
     <div>
-      <h3>Copyright</h3>
+      <h3 class="copyright">Copyright</h3>
       <p>Bible verses are quoted from the Catholic Public Domain Version.</p>
       <a href="https://thenounproject.com/term/rosary/329724/" target="_blank" rel="noreferrer">
         Rosary favicon by Tivi Lupercio Ordoñez
@@ -54,9 +58,11 @@
         How to Pray the Rosary from the USCCB
       </a>
       <br />
-      <p>The 20 Mysteries of The Rosary - Bellazzi</p>
-      <p>Copyright 2021 - Used with permission</p>
-      <p>Fratelli Bonella - Milan, Italy</p>
+      <div class="image-copyright-info">
+        <p>The 20 Mysteries of The Rosary - Bellazzi</p>
+        <p>Copyright 2021 - Used with permission</p>
+        <p>Fratelli Bonella - Milan, Italy</p>
+      </div>
       <br />
     </div>
     <p>Copyright Ian G 2021</p>
@@ -65,7 +71,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import MysteriesNav from '../components/MysteriesNav.vue'
 import OpeningPrayers from '../components/OpeningPrayers.vue'
 import Toggle from '../components/Toggle.vue'
@@ -79,7 +84,7 @@ export default {
   },
   data() {
     return {
-      checked: true,
+      checked: this.$store.state.darkMode,
     }
   },
   mounted() {
@@ -90,5 +95,23 @@ export default {
 </script>
 
 <style lang="scss">
-
+.theme-box {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-bottom: 1rem;
+}
+.theme-icon {
+  padding: 0 1rem;
+}
+.copyright {
+  font-family: Karla, Avenir, Helvetica, Arial, sans-serif;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+.image-copyright-info {
+  & > p {
+    padding-bottom: 0;
+  }
+}
 </style>

@@ -37,29 +37,38 @@ export default {
   methods: {
     navTo(mystery) {
       this.$store.commit('setCurrentMystery', mystery)
-      this.$store.commit('setCurrentDecade', 0)
-      this.$router.push({ name: 'Mystery', params: { mystery } })
+      // this.$store.commit('setCurrentDecade', 0)
+      this.$router.push({ name: 'Mystery', params: { mystery, id: '1' } })
     }
   }
 }
 </script>
 
 <style lang="scss">
+#mysteries-nav {
+  background-color: var(--theme-color-transluscent);
+}
 .link {
   flex: 1;
   padding: 0;
   cursor: pointer;
 
   & > h3 {
-    margin-left: 2rem;
+    background-color: transparent;
+    margin-left: 1rem;
     margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
   }
   & > p {
     padding: 0.5rem 3rem;
+    font-size: 1.2rem;
   }
 }
 .current-day {
-  background-color: greenyellow;
+  background-color: var(--theme-color-invert);
+  color: whitesmoke;
+  margin-right: 50%;
 }
 
 @media screen and (min-width: 768px) {
