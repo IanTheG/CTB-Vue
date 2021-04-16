@@ -1,9 +1,9 @@
 <template>
 <main class="scroll-box">
   <div id="top-box" class="box">
-    <div>
-      <h1 class="title title--mystery">The {{ currentMysteryNumber }} {{ $store.state.currentMystery.name }} Mystery</h1>
-      <h2 class="title title--mystery">{{ currentMysteryName }}</h2>
+    <div class="background-theme">
+      <h1 class="title title--mystery" style="padding-bottom: 0;">The {{ currentMysteryNumber }} {{ $store.state.currentMystery.name }} Mystery</h1>
+      <h2 class="title title--mystery" style="padding-top: 0;">{{ currentMysteryName }}</h2>
       <p style="text-align: center;"><em>Fruits of the mystery: {{ currentMysteryFruits }}</em></p>
     </div>
     <section>
@@ -15,17 +15,17 @@
 
   <Decade />
 
-  <div class="box">
+  <div class="box background-theme">
     <section class="prayer">
       <div>
-        <h3>Glory Be</h3>
+        <h3 class="title">Glory Be</h3>
         <div class="div-line"></div>
         <p v-for="(line, idx) in gloryBe" :key="idx">{{ line }}</p>
       </div>
     </section>
     <section class="prayer">
       <div>
-        <h3>Fatima Prayer</h3>
+        <h3 class="title">Fatima Prayer</h3>
         <div class="div-line"></div>
         <p>{{ fatimaPrayer }}</p>
       </div>
@@ -110,9 +110,6 @@ export default {
 </script>
 
 <style lang="scss">
-.title--mystery {
-  font-size: 1.5rem;
-}
 .btn-box {
   display: flex;
   justify-content: center;

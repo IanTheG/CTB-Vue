@@ -1,12 +1,8 @@
 <template>
   <div id="app">
-    <!-- <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div> -->
     <!-- Render image container here -->
+    
     <router-view :key="$route.path"/>
-    <!-- <router-view /> -->
   </div>
 </template>
 
@@ -17,6 +13,12 @@ function setDocHeight() {
 window.addEventListener('load', setDocHeight)
 window.addEventListener('resize', setDocHeight)
 window.addEventListener('orientationchange', setDocHeight)
+
+export default {
+  created() {
+    document.documentElement.setAttribute('data-theme', false)
+  }
+}
 </script>
 
 <style lang="scss">
@@ -26,13 +28,19 @@ window.addEventListener('orientationchange', setDocHeight)
 @function vh($quantity) {
   @return calc(var(--vh, 1vh) * #{$quantity});
 }
+:root {
+  --theme-color: #967db4;
+  --theme-color-transluscent: rgba(150, 125, 180, 0.85);
+  --theme-color-invert: #6A5188;
+  --theme-text-color: black;
+}
 html {
-  font-size: 16px;
+  font-size: 15px;
 }
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: black;
+  color: var(--theme-text-color);
 }
 body {
   margin: 0;
@@ -40,8 +48,12 @@ body {
   box-sizing: border-box;
 }
 h1, h2, h3 {
+  background-color: var(--theme-color);
   text-align: center;
-  font-family: Satisfy, Avenir, Helvetica, Arial, sans-serif
+  margin: 0;
+  padding: 1rem;
+  font-family: Satisfy, Avenir, Helvetica, Arial, sans-serif;
+  border-bottom: 0.25rem solid var(--theme-color-invert);
 }
 h1 {
   font-size: 2.2rem;
@@ -51,7 +63,7 @@ h2 {
 }
 h3 {
   font-size: 1.8rem;
-  margin: 1rem;
+  padding: 1rem;
   text-align: left;
 }
 p, a {
@@ -63,7 +75,7 @@ button {
   font-family: Karla, Avenir, Helvetica, Arial, sans-serif;
 }
 section {
-  background-color: beige;
+  background-color: var(--theme-color-transluscent);
   padding-top: 1rem;
 }
 .prayer {
@@ -73,7 +85,7 @@ section {
 .div-line {
   margin: 0 1rem 1rem 1rem;
   height: 0.2rem;
-  background-color: #6A5188;//var(--theme-invert);
+  background-color: var(--theme-color-invert);
   border-radius: 0.5rem;
 }
 
@@ -103,10 +115,30 @@ section {
 }
 
 .title {
-  font-family: Karla, Avenir, Helvetica, Arial, sans-serif;
-  margin: 1rem;
+  background-color: transparent;
+  border-bottom: none;
+
+  &--text {
+    font-family: Karla, Avenir, Helvetica, Arial, sans-serif;
+  }
+  &--mystery {
+    font-family: Karla, Avenir, Helvetica, Arial, sans-serif;
+    font-size: 1.4rem;
+  }
+  &--closing-prayers {
+    background-color: var(--theme-color);
+    font-size: 1.8rem;
+  }
+}
+.background-theme {
+  background-color: var(--theme-color-transluscent);
 }
 
+@media screen and (min-width: 370px) {
+  html {
+    font-size: 16px;
+  }
+}
 @media screen and (min-width: 400px) {
   html {
     font-size: 18px;
@@ -115,7 +147,7 @@ section {
 
 @media screen and (min-height: 768px) {
   h3 {
-    font-size: 2rem;
+    font-size: 2.2rem;
   }
   p {
     font-size: 1.2rem;

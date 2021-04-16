@@ -81,12 +81,14 @@ export default {
   -webkit-backface-visibility: hidden;
   position: -webkit-sticky;
   position: sticky;
+  background-color: var(--theme-color);
 
   &--top {
     padding-top: 1rem;
     text-align: center;
     top: 0rem;
     z-index: 2;
+    border-bottom: 0.25rem solid var(--theme-color-invert);
   }
   &--bottom {
     margin: 0;
